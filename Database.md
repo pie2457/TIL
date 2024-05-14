@@ -50,3 +50,34 @@
 
 </details>
 <br>
+
+### 📌 동시성 제어 기법 / 2PL
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- 2-Phase-Lock(2단계 잠금 프로토콜)이란 트랜잭션 도중에 락을 걸어 동일한 데이터에 동시에 접근하려는 트랜잭션을 차단하여 직렬화를 보장하는 DBMS의 동시 제어 방법입니다.<br>
+![image](https://github.com/pie2457/backend_tech_interview/assets/104147789/0b1df445-b8f6-4db7-a985-7d99edaed29c) <br>
+  2PL은 각 트랜잭션이 두 단계로 락 획득 또는 해제 요청을 할 수 있습니다. <br>
+  - Growing Phase : 이 단계에서는 오직 잠금을 획득할 수 있고, 해제할 수는 없습니다.
+  - Shrinking Phase : 이 단계에서는 트랜잭션이 잠금을 해제할 수는 있지만, 새로운 잠금을 획득할 수는 없습니다.
+
+
+</details>
+<br>
+
+### 📌 동시성 제어 기법 / Pessimistic Lock & Optimistic Lock
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- [Pessimistic Lock]
+   - 비관적 락은 2개 이상의 트랜잭션이 동시에 동일한 데이터에 접근할 것이라 가정하여 DB의 실제 데이터에 락을 걸어 데이터의 정합성을 맞추는 방식입니다. 비관적 락은 트랜잭션이 시작할 때 X-Lock 또는 S-Lock을 걸게 됩니다.
+      - 배타 락 (Exclusive-Lock, X-Lock) : 배타 락은 엔티티에 접근하려는 모든 요청을 제어합니다. 하나의 요청이 자원을 얻으면 다른 요청은 대기 상태가 됩니다.
+      - 공유 락 (Shared-Lock, S-Lock) : 공유 락은 업데이트 상황에서만 동시성 제어를 하고 있습니다. 조회만 하는 경우에는 락이 발생하지 않고 접근이 가능합니다.
+- [Optimisitic Lock]
+   - 낙관적 락은 2개 이상의 트랜잭션이 동시에 동일한 데이터에 접근하지 않을 것이라 가정하여 실제로 락을 사용하지는 않고 버전 정보를 이용해 데이터의 정합성을 맞추는 방식입니다.
+     같은 데이터에 동시에 접근할 때와 데이터를 변경하려 할 때 버전 정보가 다르다면 rollback이 일어납니다.
+
+</details>
+<br>
