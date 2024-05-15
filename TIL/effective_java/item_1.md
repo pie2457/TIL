@@ -294,13 +294,8 @@ public abstract class StaticFactoryMethodType {
         try {
             Class<?> childClass = Class.forName("algorithm.dataStructure.StaticFactoryMethodTypeChild"); // 리플렉션
             temp = (StaticFactoryMethodType) childClass.newInstance(); // 리플렉션
-
-        } catch (ClassNotFoundException e) {
-           System.out.println("클래스가 없습니다.");
-        } catch (InstantiationException  e) {
-            System.out.println("메모리에 올릴수 없습니다.");
-        } catch (IllegalAccessException  e) {
-            System.out.println("클래스 파일 접근 오류입니다.");
+        } catch (Exception e) {
+           // error handling..
         }
 
         return temp;
