@@ -2,74 +2,70 @@
 
 <details>
 <summary>생성자 ?</summary>
-    Constructor : 클래스로부터 객체를 생성하기위해 호출하는 메서드
-    
-    - 생성자의 특징
-    1. new 연산자를 통해서 객체 생성 시, 반드시 호출 되고 제일 먼저 실행된다.
-    2. 객체의 초기화(Initialize) 역할을 한다.
-    3. 생성자의 이름은 클래스의 이름과 동일해야 한다.
-    4. 만약 생성자를 생성하지 않으면, 컴파일러가 자동으로 Default Construtor를 생성, 주입한다.
-    5. 파라미터의 구성이 같은 생성자는 두개 이상 만들 수 없다.
-        - 예를 들어, String 변수 하나 받는 생성자가 두개 일 수 없다.
+    Constructor : 클래스로부터 객체를 생성하기위해 호출하는 메서드 <br>
+    ✔️ 생성자의 특징 <br>
+    1. new 연산자를 통해서 객체 생성 시, 반드시 호출 되고 제일 먼저 실행된다. <br>
+    2. 객체의 초기화(Initialize) 역할을 한다. <br>
+    3. 생성자의 이름은 클래스의 이름과 동일해야 한다. <br>
+    4. 만약 생성자를 생성하지 않으면, 컴파일러가 자동으로 Default Construtor를 생성, 주입한다. <br>
+    5. 파라미터의 구성이 같은 생성자는 두개 이상 만들 수 없다. 예를 들어, String 변수 하나 받는 생성자가 두개 일 수 없다. <br>
             
-            ```java
-            public class Student {
+```java
+public class Student {
             
-            	private String name;
-            	private String email;
-            	private String phoneNumber;
+  private String name;
+  private String email;
+  private String phoneNumber;
             	
-            	public Student(String name) {
-            		this.name = name;
-            	}
+  public Student(String name) {
+    this.name = name;
+  }
             	
-            	// 사용할 수 없다. 
-            	// 파라미터가 달라도 타입이 같으면 이미 있는 생성자로 판단.
-            	public Student(String email) {
-            		this.email = email;
-            	}
-            ```
+  // 사용할 수 없다. 
+  // 파라미터가 달라도 타입이 같으면 이미 있는 생성자로 판단.
+  public Student(String email) {
+    this.email = email;
+  }
+```
 </details>
 
 <details>
 <summary>정적 팩토리 메서드 ?</summary>
-    
     정적 팩토리 메서드를 설명하기 전에 이해를 위해 개념을 먼저 정리해 보자.
-    
-    - 개념정리
-        - GoF Pattern : “Gang Of Four”의 줄임말로, 네명의 개발자가 정리한 SoftWare Disign Pattern
-        - Software Pattern : 소프트웨어를 설계하는 단계에서 참고할 수 있는 Problem & Solving을 정리해 놓은것.
-        - Factory : GoF 패턴에 등장하는 기법 중 하나로, 메소드 하나를 두어 객체 생성의 역할만을 하게 한다는 것.
-        - Expert : GoF 패턴에 등장하는 기법 중 하나. 한 객체가 한 기능을 최대한 담당하는 것이 좋다는 이론이다.
-        - Low Coupling : GoF 패턴에 등장하는 기법 중 하나이며 OOP의 대원칙. 객체와 객체 사이에 최대한 결합도를 낮추는 것.
-        - High Coupling : GoF 패턴에 등장하는 기법 중 하나이며 OOP의 대원칙. 한 기능은 최대한 한 객체에 응집되어 있어야 한다는 것.
-    
+		<details>
+    <summary>개념정리</summary>
+        - GoF Pattern : “Gang Of Four”의 줄임말로, 네명의 개발자가 정리한 SoftWare Disign Pattern <br>
+        - Software Pattern : 소프트웨어를 설계하는 단계에서 참고할 수 있는 Problem & Solving을 정리해 놓은것. <br>
+        - Factory : GoF 패턴에 등장하는 기법 중 하나로, 메소드 하나를 두어 객체 생성의 역할만을 하게 한다는 것. <br>
+        - Expert : GoF 패턴에 등장하는 기법 중 하나. 한 객체가 한 기능을 최대한 담당하는 것이 좋다는 이론이다. <br>
+        - Low Coupling : GoF 패턴에 등장하는 기법 중 하나이며 OOP의 대원칙. 객체와 객체 사이에 최대한 결합도를 낮추는 것. <br>
+        - High Coupling : GoF 패턴에 등장하는 기법 중 하나이며 OOP의 대원칙. 한 기능은 최대한 한 객체에 응집되어 있어야 한다는 것. <br>
+    </details>
     정적 팩토리 메서드의 예시
-    
-    필자는 객체의 생성을 일반적인 생성자(Constructor)를 통하지 않고 생성을 위한 메서드(Method)를 별도로 만들어 두는 것을 제안하고 있다. 
-    
-    ```java
-    public class Student {
+    필자는 객체의 생성을 일반적인 생성자(Constructor)를 통하지 않고 생성을 위한 메서드(Method)를 별도로 만들어 두는 것을 제안하고 있다. <br>
+
+```java
+public class Student {
     	
-    	private int grade;
+  private int grade;
     	
-    	private Student(int grade) {
-    		this.grade = grade;
-    	}
+  private Student(int grade) {
+     this.grade = grade;
+  }
     	
-    	public static Student withGrade(int grade) {
-    		return new Student(grade);
-    	}
-    }
+  public static Student withGrade(int grade) {
+     return new Student(grade);
+  }
+}
     
-    public class Main {
-    	public static void main(String[] args) {
-    		Student student = Student.withGrade(2);
-    	}
-    }
-    ```
+public class Main {
+  public static void main(String[] args) {
+    Student student = Student.withGrade(2);
+  }
+}
+```
     
-    이제부터 생성자와 정적 팩토리 메서드와의 차이가 무엇인지, 장점과 단점을 알아보자.
+이제부터 생성자와 정적 팩토리 메서드와의 차이가 무엇인지, 장점과 단점을 알아보자.
 </details>
 
 ## 정적 팩토리 메서드의 장점
@@ -78,48 +74,48 @@
 
 ### 1-1. 객체의 특성을 쉽게 묘사할 수 있다.
 
-앞에서 말했듯 생성자의 이름은 정의할 수 없으며,  생성자의 이름은 클래스의 이름과 같아야 한다. 이는 생성자의 특징이자 제한이다.  
+앞에서 말했듯 생성자의 이름은 정의할 수 없으며,  생성자의 이름은 클래스의 이름과 같아야 한다. 이는 생성자의 특징이자 제한이다.
 
 만약 정적 팩토리 메서드를 사용한다면, 클래스 이름과는 다른 보다 특징적인 이름을 지어줄 수가 있다. 
 
 ```java
 public class Consumer {
 	
-	private String name;
-	private int age;
-	private boolean delivery = true;
-	private boolean isMember = true;
+  private String name;
+  private int age;
+  private boolean delivery = true;
+  private boolean isMember = true;
 	
-	private Consumer() {}
+  private Consumer() {}
 	
-	public static Consumer fromDelivery(String name, boolean delivery) {
-		Consumer consumer = new Consumer();
-		consumer.name = name;
-		consumer.delivery = delivery;
-		return consumer;
-	}
+  public static Consumer fromDelivery(String name, boolean delivery) {
+    Consumer consumer = new Consumer();
+    consumer.name = name;
+    consumer.delivery = delivery;
+    return consumer;
+  }
 	
-	public static Consumer fromMember(String name, boolean isMember) {
-		Consumer consumer = new Consumer();
-		consumer.name = name;
-		consumer.isMember = isMember;
-		return consumer;
-	}
+  public static Consumer fromMember(String name, boolean isMember) {
+    Consumer consumer = new Consumer();
+    consumer.name = name;
+    consumer.isMember = isMember;
+    return consumer;
+  }
 	
 	
 public Class Main {
-	public static void main(String[] arge) {
-			Consumer consumer1 = consumer.fromDelivery("James", true);
-			Consumer consumer2 = consumer.fromMember("Olive", true);
-	}
+  public static void main(String[] arge) {
+    Consumer consumer1 = consumer.fromDelivery("James", true);
+    Consumer consumer2 = consumer.fromMember("Olive", true);
+  }
 }
 ```
 
 일반적인 생성자는 클래스 이름과 같은 이름을 가진다는 제약이 있기 때문에 무슨 의도인지, 무엇으로 만드는지 파악하기가 어렵다. 
 
-그런데 위의 예시를 보면,
+그런데 위의 예시를 보면, “제임스는 배송을 신청했구나”, “올리브는 회원이구나”라는 정보를 알수있다.
 
-“제임스는 배송을 신청했구나”, “올리브는 회원이구나”라는 정보를 알수있다. 무엇때문에 ? **정적 팩토리 메서드의 이름때문**이다. 결과적으로 **코드의 가독성을 높여준다**.
+무엇때문에 ? **정적 팩토리 메서드의 이름**때문이다. 결과적으로 **코드의 가독성을 높여준다**.
 
 ### 1-2. “하나의 시그니처로 생성자를 하나만 만들 수 있다”라는 제약이 없다.
 
@@ -128,31 +124,31 @@ public Class Main {
 ```java
 public class Consumer {
 	
-	private String name;
-	private int age;
-	private boolean fromDelivery;
-	private boolean fromMember;
+  private String name;
+  private int age;
+  private boolean fromDelivery;
+  private boolean fromMember;
 	
-	public Consumer(String name, int age, boolean fromDelivery) {
-		 this.name = name;
-		 this.age = age;
-		 this.fromDelivery = fromDelivery;
-	}
+  public Consumer(String name, int age, boolean fromDelivery) {
+    this.name = name;
+    this.age = age;
+    this.fromDelivery = fromDelivery;
+  }
 	
-	// 단순히 매개변수의 String과 int의 순서만 바꿔도 다른 형태의 매개변수를 받는다고 인식.
-	public Consumer(int age, String name, boolean fromMember) {
-		this.age = age;
-		this.name = name;
-		this.fromMember = fromMember;
-	}
+  // 단순히 매개변수의 String과 int의 순서만 바꿔도 다른 형태의 매개변수를 받는다고 인식.
+  public Consumer(int age, String name, boolean fromMember) {
+    this.age = age;
+    this.name = name;
+    this.fromMember = fromMember;
+  }
 }
 
 public class Main {
-	public static void main(String[] arge) {
-		Consumer consumer1 = new Consumer("James", 24, true);
-		Consumer consumer2 = new Consumer(24, "Olive", false);
-		// 생성자만 보고는 어떤 역할을 하는지 구분할 수 없음.
-	}
+  public static void main(String[] arge) {
+    Consumer consumer1 = new Consumer("James", 24, true);
+    Consumer consumer2 = new Consumer(24, "Olive", false);
+    // 생성자만 보고는 어떤 역할을 하는지 구분할 수 없음.
+  }
 }
 ```
 
@@ -182,7 +178,7 @@ public static final Boolean TRUE = new Boolean(true);
 public static final Boolean FALSE = new Boolean(false);
 
 public static Boolean valueOf(boolean b) {
-	return (b ? TRUE : FALSE);
+  return (b ? TRUE : FALSE);
 }
 ```
 
@@ -199,51 +195,51 @@ Boolean.TRUE와 Boolean.FALSE를 미리 불변 객체로 생성한 후에, value
 ```java
 public interface Grade {
 	
-	String toText();
+  String toText();
 	
-	static Grade of (int score) {
-		if (score >= 90) {
-			return new A();
-		} else if (score >= 80) {
-			return new B();
-		} else {
-			return new F();
-		}
-	}
+  static Grade of (int score) {
+    if (score >= 90) {
+      return new A();
+    } else if (score >= 80) {
+      return new B();
+    } else {
+      return new F();
+    }
+  }
 ```
 
 ```java
 public class A implements Grade {
 	
-	@Override
-	public String toText() {
-		return "A";
-	}
+  @Override
+  public String toText() {
+    return "A";
+  }
 }
 
 public class B implements Grade {
 	
-	@Override
-	public String toText() {
-		return "B";
-	}
+  @Override
+  public String toText() {
+    return "B";
+  }
 }
 
 public class F implements Grade {
 	
-	@Override
-	public String toText() {
-		return "F";
-	}
+  @Override
+  public String toText() {
+    return "F";
+  }
 }
 ```
 
 ```java
 public class Application {
-	public static void main(String[] args) {
-		Grade grade = Grade.of(95);
-		System.out.println(grade);
-	}
+  public static void main(String[] args) {
+    Grade grade = Grade.of(95);
+    System.out.println(grade);
+  }
 }
 ```
 
@@ -263,14 +259,14 @@ public class Application {
 
 ```java
 public static <E extends Enum<E>> EnumSet<E> noneOf(Class<E> elementType) {
-        Enum<?>[] universe = getUniverse(elementType);
+  Enum<?>[] universe = getUniverse(elementType);
         
-        if (universe == null)
-            throw new ClassCastException(elementType + " not an enum");
-        if (universe.length <= 64)
-            return new RegularEnumSet<>(elementType, universe);
-        else
-            return new JumboEnumSet<>(elementType, universe);
+  if (universe == null)
+     throw new ClassCastException(elementType + " not an enum");
+  if (universe.length <= 64)
+     return new RegularEnumSet<>(elementType, universe);
+  else
+     return new JumboEnumSet<>(elementType, universe);
 }
 ```
 
@@ -287,9 +283,9 @@ package algorithm.dataStructure;
 
 public abstract class StaticFactoryMethodType {
 
-    public abstract void getName();
+  public abstract void getName();
 
-    public static StaticFactoryMethodType getNewInstance() {
+  public static StaticFactoryMethodType getNewInstance() {
         StaticFactoryMethodType temp = null;
         try {
             Class<?> childClass = Class.forName("algorithm.dataStructure.StaticFactoryMethodTypeChild"); // 리플렉션
@@ -319,7 +315,6 @@ public interface Test {
 }
 
 public class Main {
-
     public static void main(String[] args) {
         Test test = Test.create();
         System.out.println(test.sum(1, 2)); // NPE 발생
@@ -340,7 +335,7 @@ public class Main {
 ```java
 public class Child { 
 	
-	Parent parent;
+  Parent parent;
 }
 ```
 
