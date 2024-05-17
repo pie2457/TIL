@@ -291,3 +291,21 @@
 
 </details>
 <br>
+
+### 📌 조인 (Join)
+<details>
+   <summary> 답안 </summary>
+<br />
+   
+- 조인이란 두 개 이상의 테이블을 연결하여 하나의 결과를 만들어 내는 것을 의미하며, 이를 통해 데이터를 효율적으로 검색하고 처리하는데 도움을 줍니다. <br>
+  ### 조인의 종류
+  - InnerJoin : 두 테이블을 연결할 때 가장 많이 사용하는 것이 inner join입니다. 기준 테이블과 join한 테이블의 중복값을 보여줍니다. <br>
+    <img src="https://hongong.hanbit.co.kr/wp-content/uploads/2021/11/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-SQL_INNER-JOIN.png" style="width: 30%; height: auto;"> 
+
+  - Left Outer Join : 기준 테이블은 다 보여주고 join 테이블은 기준 테이블과 중복된 값을 보여줍니다. 기준 테이블과의 중복값이 없다면 Null로 표기됩니다. <br>
+  - Right Outer Join : Left Outer Join 반대. <br>
+   <img src="https://hongong.hanbit.co.kr/wp-content/uploads/2021/11/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-SQL_OUTER-JOIN.png" style="width: 30%; height: auto;"> 
+
+[사진 출처] : https://hongong.hanbit.co.kr/sql-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-joininner-outer-cross-self-join/
+</details>
+<br>
