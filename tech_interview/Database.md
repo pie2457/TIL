@@ -96,6 +96,184 @@
 </details>
 <br>
 
+### 📌 동시성을 제어하지 않았을 시 생기는 문제
+<details>
+   <summary> 답안 </summary>
+<br />
+   
+   ### 1. 갱신 분실 (Lost Update)
+   하나의 트랜잭션이 수행한 데이터 변경 연산이 저장되기 전에 다른 트랜잭션이 데이터를 가지고 가서 데이터를 변경하고 다시 저장하는 경우, 첫번째 트랜잭션이 수행한 연산이 무효가됩니다. 
+<table>
+   <tr>
+      <th scope="col"> 시간 </td>
+      <th scope="col"> 트랜잭션1 </td>
+      <th scope="col"> 트랜잭션2 </td>
+   </tr>
+   <tr>
+      <td> 1 </td>
+      <td> select A </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 2 </td>
+      <td>   </td>
+      <td> select A </td>
+   </tr>
+   <tr>
+      <td> 3 </td>
+      <td> update A to b </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 4 </td>
+      <td>   </td>
+      <td> update A to c </td>
+   </tr>
+</table>
+   1. 트랜잭션1에서 A 조회 (현재 A값은 a) <br>
+   2. 트랜잭션2에서 A 조회 (현재 A값은 a) <br>
+   3. 트랜잭션1에서 A -> b로 갱신 (현재 A값은 b) <br>
+   4. 트랜잭션2에서 A -> c로 갱신 (현재 A값은 c) <br>
+   -> 트랜잭션1의 갱신이 손실된다. 
+
+   ### 2. 미완료 의존성 (Uncommited Dependency)
+   한 트랜잭션이 수행 중 장애가 생겨 rollback 연산을 하기 전에 해당 트랜잭션이 갱신한 데이터를 다른 트랜잭션에서 이미 가져갔다면, 데이터베이스에 있는 데이터와 트랜잭션이 가지고 있는
+   데이터가 다르게 되는 문제가 발생하게 됩니다. 
+<table>
+   <tr>
+      <th scope="col"> 시간 </td>
+      <th scope="col"> 트랜잭션1 </td>
+      <th scope="col"> 트랜잭션2 </td>
+   </tr>
+   <tr>
+      <td> 1 </td>
+      <td> </td>
+      <td> select A </td>
+   </tr>
+   <tr>
+      <td> 2 </td>
+      <td>   </td>
+      <td> update A to b </td>
+   </tr>
+   <tr>
+      <td> 3 </td>
+      <td> select A </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 4 </td>
+      <td>   </td>
+      <td> rollback </td>
+      <br>
+   </tr>
+</table>
+   1. 트랜잭션2에서 A 조회 (현재 A값은 a) <br>
+   2. 트랜잭션2에서 A -> b로 갱신 (현재 A값은 b) <br>
+   3. 트랜잭션1에서 아직 완료되지 않은 갱신(비완료된 변화)을 조회 (현재 A값은 b) <br>
+   4. 트랜잭션2에서 롤백 (현재 A값은 a) <br>
+   -> 트랜잭션1에서는 아직 완료되지 않은 갱신(비완료된 변화)를 조회하게 된다. 
+
+   ### 3. 모순성 (inconsistent)
+   트랜잭션이 여러개의 데이터를 변경하는 연산을 할 때 동일하지 않은 시간에 각각의 데이터를 가지고오면 연산의 일관성이 사라져 모순이 생기게 됩니다. <br>
+   데이터 x, y에 각 100이라는 숫자가 들어있다고 가정합니다.
+<table>
+   <tr>
+      <th scope="col"> 시간 </td>
+      <th scope="col"> 트랜잭션1 </td>
+      <th scope="col"> 트랜잭션2 </td>
+   </tr>
+   <tr>
+      <td> 1 </td>
+      <td> select x </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 2 </td>
+      <td> update x to value(100) + 20 </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 3 </td>
+      <td> </td>
+      <td> select x , y</td>
+   </tr>
+   <tr>
+      <td> 4 </td>
+      <td>   </td>
+      <td> update x, y to value(x = 120, y = 100) * 2 </td>
+   </tr>
+   <tr>
+      <td> 5 </td>
+      <td> select y </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 6 </td>
+      <td> update y to value(200) + 20 </td>
+      <td> </td>
+      <br>
+   </tr>
+</table>
+   1. 트랜잭션1에서 x값 조회. <br>
+   2. 트랜잭션1에서 x값을 x값 + 20으로 갱신. (x값=120, y값=100) <br>
+   3. 트랜잭션2에서 x, y값 조회. <br>
+   4. 트랜잭션2에서 x와 y값을 120, 100 * 2로 갱신 (x값=240, y값=200). <br>
+   5. 트랜잭션1에서 y값 조회. <br>
+   6. 트랜잭션1에서 y값을 y값 + 20으로 갱신. <br>
+   -> 결과는 x값=240 y값=240이어야 하지만 데이터의 일관성이 없어 모순이 발생하게 됩니다.
+   
+### 4. 연쇄 복귀 (Cascading Rollback)
+트랜잭션에 장애가 발생해서 rollback 연산을 하려면 해당 트랜잭션이 사용했던 데이터를 사용한 다른 트랜잭션들도 rollback을 수행해야 하는데 이미 그 트랜잭션이 완료되어 커밋이 됐는데도 rollback이 수행되어야 해서 문제가 발생하게 됩니다. <br>
+데이터 x, y에 각 100이라는 숫자가 들어있다고 가정합니다.
+<table>
+   <tr>
+      <th scope="col"> 시간 </td>
+      <th scope="col"> 트랜잭션1 </td>
+      <th scope="col"> 트랜잭션2 </td>
+   </tr>
+   <tr>
+      <td> 1 </td>
+      <td> select x </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 2 </td>
+      <td> update x to value(100) + 20 </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 3 </td>
+      <td> </td>
+      <td> select x </td>
+   </tr>
+   <tr>
+      <td> 4 </td>
+      <td>   </td>
+      <td> update x to value(x = 120) * 2 </td>
+   </tr>
+   <tr>
+      <td> 5 </td>
+      <td> select y </td>
+      <td> </td>
+   </tr>
+   <tr>
+      <td> 6 </td>
+      <td> 장애로 인한 rollback</td>
+      <td> 이미 완료되었지만 rollback 된다</td>
+   </tr>
+</table>
+   1. 트랜잭션1에서 x값 조회. <br>
+   2. 트랜잭션1에서 x값을 x값 + 20으로 갱신. (x값=120, y값=100) <br>
+   3. 트랜잭션2에서 x값 조회. <br>
+   4. 트랜잭션2에서 x와 120 *2 2로 갱신. (x값=240, y값=100). <br>
+   5. 트랜잭션1에서 y값 조회. <br>
+   6. 트랜잭션1에서 장애로 인한 rollback 발생 -> 트랜잭션2도 rollback. <br>
+   -> 트랜잭션1에서 장애가 발생해 rollback이 되어 원래 DB 상태로 복구되어야 하는데 여기서 트랜잭션1이 건드린 데이터는 x, y입니다. rollback이 발생하였으니 데이터 x도 rollback이 수행되어야 하지만, 트랜잭션2 또한 x의 데이터로 연산 작업을 수행한 후 커밋으로 데이터를 저장합니다. 장애가 발생하여 x, y 데이터 모두 원래 상태로 복구되어야 하지만 
+트랜잭션2가 이미 완료된 트랜잭션이기 때문에 rollback 연산을 할 수 없게 되어 문제가 발생합니다. 
+   
+</details>
+<br>
+
 ### 📌 데이터베이스 무결성 제약조건
 
 <details>
