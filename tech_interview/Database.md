@@ -308,3 +308,14 @@
 [사진 출처] : https://hongong.hanbit.co.kr/sql-%EA%B8%B0%EB%B3%B8-%EB%AC%B8%EB%B2%95-joininner-outer-cross-self-join/
 </details>
 <br>
+
+### 📌 인덱스 (index)
+<details>
+   <summary> 답안 </summary>
+<br />
+- 인덱스란 데이터베이스 테이블의 검색 속도를 향상시키기 위한 자료구조 입니다. 인덱스는 규모가 작지 않은 테이블, 
+   write 작업(INSERT, UPDATE, DELETE)이 자주 발생하지 않는 컬럼, JOIN이나 WHERE 또는 ORDER BY에 자주 사용되는 컬럼 등에 유용합니다. <br>
+   또한 수정이 잦은 테이블에서 사용하지 않는 이유는 인덱스는 기존 데이터에 추가적인 데이터 구조를 생성하여 검색 성능을 향상 시키는데, 테이블에 write할 때 마다
+   인덱스 또한 변경이 발생되어 인덱스에 부담이 늘어나므로 신중히 고려해야하기 때문입니다. 
+</details>
+<br>
