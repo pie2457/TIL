@@ -73,6 +73,15 @@
    </details>
    <br>
    
+   <br>
+   <details>
+      <summary> <strong> 그러면 생성자 주입은 뭐가 좋아요? </strong> </summary>
+   <br />
+
+   - 테스트 코드 작성에 용이하며, 객체의 변경 가능성을 제거하고 불변성을 확보할 수 있는 등 여러가지 이점이 많이 있습니다.
+   </details>
+   <br>
+   
   </details>
 <br>
 
