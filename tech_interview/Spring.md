@@ -13,6 +13,28 @@
   </details>
 <br>
 
+### 📌 Springboot가 해결하려 했던 건 뭐라고 생각하나요?
+
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- Springboot가 등장하기 이전 Spring을 사용해 간단한 서버를 띄우기 위해서는 수많은 빈 설정과 의존관계를 개발자가 하나하나 설정해줘야 했습니다.
+  이러한 이유들로 개발자는 비즈니스 로직에 집중하기 어려웠고, 많은 시간을 쏟아야 했습니다. 이런 문제들을 해결하기 위해 등장한 것이 스프링 부트라고 생각합니다.
+  </details>
+<br>
+
+### 📌 FrontController 패턴이 뭐에요?
+
+<details>
+   <summary> 답안 </summary>
+<br />
+   
+- FrontController 패턴은 요청을 받는 컨트롤러를 하나로 두어 요청을 한 곳에서 처리하도록 한 패턴입니다. Spring MVC에서는 이 패턴을 적용한
+  FrontController가 DispatcherServlet이라 할 수 있습니다.
+  </details>
+<br>
+
 ### 📌 Spring MVC의 동작원리
 
 <details>
@@ -91,7 +113,15 @@
    <summary> 답안 </summary>
 <br />
 
-- AOP는 관점 지향 프로그래밍으로 여러 객체에 공통적으로 적용할 수 있는 기능을 분리해서 재사용성을 높여주는 프로그래밍 기법입니다. <br> 
+- AOP는 관점 지향 프로그래밍으로 여러 객체에 공통적으로 적용할 수 있는 기능을 분리해서 재사용성을 높여주는 프로그래밍 기법입니다. <br>
+
+   <details>
+     <summary> 언제 AOP를 사용할 수 있을까요? </summary>
+   <br />
+
+   - 로깅 처리를 하거나 트랜잭션 처리를 할 때 사용할 수 있을 것 같습니다. 
+   </details>
+<br>
   </details>
 <br>
 
@@ -122,6 +152,19 @@
   </details>
 <br>
 
+### 📌 Spring MVC에서 Interceptor와 Filter차이
+
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- Filter의 경우 Spring Context 영역 밖에서 동작합니다. 또한 요청이 Servlet으로 가기 전 요청을 가로채 로직을 수행할 수 있습니다. 필터의 다른 특징은 여러 필터들을 모아
+  체이닝을 할 수 있다는 것입니다. Interceptor는 Spring Context 영역 내 DispatcherServlet과 Controller 사이에서 동작하는 것이 필터와의 다른점 입니다.
+  Interceptor 또한 필터처럼 체이닝을 구성할 수 있다는 것이 특징입니다. 
+  </details>
+<br>
+
+
 ### 📌 JPA 영속성 컨텍스트의 특징이 뭐가있나요?
 
 <details>
@@ -136,5 +179,3 @@
    - 지연로딩은 JPA가 하나의 Entity를 조회할 때 연관 관계에 있는 객체들을 전부 가져오지 않고 필요한 시점에 연관된 데이터를 불러옵니다.
   </details>
 <br>
-
-
