@@ -52,21 +52,6 @@
 </details>
 <br>
 
-### 📌 동시성 제어 기법 / 2PL
-<details>
-   <summary> 답안 </summary>
-<br />
-
-- 2-Phase-Lock(2단계 잠금 프로토콜)이란 트랜잭션 도중에 락을 걸어 동일한 데이터에 동시에 접근하려는 트랜잭션을 차단하여 직렬화를 보장하는 DBMS의 동시 제어 방법입니다.<br>
-![image](https://github.com/pie2457/backend_tech_interview/assets/104147789/0b1df445-b8f6-4db7-a985-7d99edaed29c) <br>
-  2PL은 각 트랜잭션이 두 단계로 락 획득 또는 해제 요청을 할 수 있습니다. <br>
-  - Growing Phase : 이 단계에서는 오직 잠금을 획득할 수 있고, 해제할 수는 없습니다.
-  - Shrinking Phase : 이 단계에서는 트랜잭션이 잠금을 해제할 수는 있지만, 새로운 잠금을 획득할 수는 없습니다.
-
-
-</details>
-<br>
-
 ### 📌 동시성 제어 기법 / Pessimistic Lock & Optimistic Lock
 <details>
    <summary> 답안 </summary>
