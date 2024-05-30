@@ -165,6 +165,49 @@
   </details>
 <br>
 
+### 📌 ORM(Object-Relational Mapping)이란?
+
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- ORM이란 객체와 데이터베이스의 패러다임 불일치를 해결하기 위한 도구입니다. 관계형 데이터베이스와 객체 지향 프로그래밍 언어 간의 호환되지 않는 데이터를 자동으로 매핑(연결)해주어
+  SQL문이 아닌 프로그래밍 언어로도 데이터베이스에 접근할 수 있게 해주는 툴입니다. ORM은 SQL문법 대신 프로그래밍 언어를 그대로 사용할 수 있게 함으로써, 프로그래밍 언어의 일관성과
+  가독성을 높여준다는 장점을 가지고 있습니다. 
+  </details>
+<br>
+
+### 📌 JPA(Java Persistence API)란?
+
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- JPA는 Java에서 관계형 데이터베이스를 사용하는 방식을 정의한 인터페이스입니다. 실제적으로 구현되어 있는 것이 아니라 구현된 클래스와 매핑을 해주기 위해
+  사용되는 프레임워크입니다. JPA를 구현한 대표적인 오픈소스로는 Hibernate가 있습니다. <br>
+  <img src="https://velog.velcdn.com/images/murphytklee/post/ffac55b5-ff42-4156-aa3c-f3c494dad492/image.png" width="700" height="300">
+  
+   <details>
+      <summary> <strong> Hibernate란? </strong> </summary>
+   <br />
+
+   - JPA의 구현체 중 하나인 Hibernate는 SQL을 사용하지 않고 직관적인 코드(메서드)를 사용해 데이터를 조작할 수 있습니다.
+     하이버네이트는 JPA 인터페이스를 구현하고 있으며 내부적으로 JDBC API를 사용합니다. 하이버네이트의 역할은 JPA에서 메서드로 요청된 정보들을 JDBC가 잘 알아 들을 수 있도록
+     한번 더 표준화 작업을 해준 뒤 JDBC에게 넘겨줍니다.
+   </details>
+   <br>
+
+   <details>
+      <summary> <strong> JDBC(Java Database Connectivity)란 ? </strong> </summary>
+   <br />
+
+   - JDBC란 데이터베이스에 연결 및 작업을 하기 위한 자바 표준 인터페이스입니다.
+     JDBC는 DBMS의 종류에 상관없이 하나의 JDBC API를 이용해서 하나의 문법으로 통일시켜 데이터베이스 작업을 처리합니다.
+   </details>
+   <br>
+  </details>
+<br>
+
 
 ### 📌 JPA 영속성 컨텍스트의 특징이 뭐가있나요?
 
