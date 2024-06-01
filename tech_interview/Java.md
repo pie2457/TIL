@@ -229,8 +229,8 @@
    - 다형성이란 어떤 객체의 속성이나 기능이 상황에 따라 여러가지 형태를 가질 수 있는 성질을 의미합니다. 대표적인 예로 메서드 오버라이딩과 오버로딩이 있습니다.
    - 캡슐화란 서로 연관있는 속성과 기능듩을 하나의 캡슐로 만들어 데이터를 외부로부터 보호하는 것을 의미합니다. 캡슐화를 하는 이유는 크게
      외부로부터 클래스에 정의된 속성과 기능들을 보호하는 데이터 보호 역할과 내부의 동작을 감추고 외부에는 필요한 부분만을 노출하는 데이터 은닉 두가지로 나뉘어져 있습니다. 
-</details>
-<br>
+   </details>
+   <br>
    
 </details>
 <br>
@@ -262,3 +262,24 @@
    </details>
 <br>
 
+### 📌 Boxing과 UnBoxing이 무엇인지 알고있나요?
+
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- Primitive Type을 Wrapper Class(Reference Type)으로 변환하는 것을 박싱(Boxing)이라고 하며,
+  Wrapper Class(Reference Type)을 Primitive Type으로 변환하는 것을 언박싱(UnBoxing)이라고 합니다. <br>
+  <img src="https://github.com/pie2457/TIL/assets/104147789/f5c0f3f3-fe59-43c7-9431-71774a977e9d" width="350" height="350"> <br>
+
+   <details>
+      <summary> <strong> Boxing과 UnBoxing을 사용하는 이유는? </strong> </summary>
+   <br />
+
+   - 제네릭, 자료구조, 매개변수 등 Primitive Type이 아닌 Reference Type을 필요로 하는 경우가 많고,
+     Wrapper Class가 메서드를 가지고 있어 다양하게 활용하기 위해 사용됩니다. <br>
+     ex) Integer.parseInt(문자열)
+</details>
+<br>
+</details>
+<br>
