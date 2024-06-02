@@ -223,3 +223,25 @@
    - 지연로딩은 JPA가 하나의 Entity를 조회할 때 연관 관계에 있는 객체들을 전부 가져오지 않고 필요한 시점에 연관된 데이터를 불러옵니다.
   </details>
 <br>
+
+### 📌 JPA의 N+1 문제에 대해 설명해주세요.
+
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- N+1 문제란 1번의 쿼리가 발생할 때, 의도치 않은 N번의 쿼리가 추가적으로 발생하는 것을 의미합니다.
+  N+1 문제는 두 엔티티의 연관관계를 즉시로딩이나, 지연로딩으로 설정한 두 경우 모두 발생할 수 있습니다. <br>
+  N+1 문제를 해결하는 방법은 fetch join 혹은 Entity Graph 이용하여 해결할 수 있습니다.
+  
+   <details>
+      <summary> <strong> fetch join은 무엇이고 Entity Graph는 무엇인가요? </strong> </summary>
+   <br />
+
+   - `fetch join`은 어떤 Entity를 영속화 시킬 때 연관된 entity들도 함께 영속화 시키는 방법이며,
+     `Entity Graph`는 spring data jpa에서 fetch join을 간단하게 사용하기 위해 제공하는 애노테이션 입니다.
+
+  </details>
+<br>
+  </details>
+<br>
