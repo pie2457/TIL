@@ -158,10 +158,11 @@
    <summary> 답안 </summary>
 <br />
 
-- Filter의 경우 Spring Context 영역 밖에서 동작합니다. 또한 요청이 Servlet으로 가기 전 요청을 가로채 로직을 수행할 수 있습니다. 필터의 다른 특징은 여러 필터들을 모아
-  체이닝을 할 수 있다는 것입니다. <br>
-  Interceptor는 Spring Context 영역 내 DispatcherServlet과 Controller 사이에서 동작하는 것이 필터와의 다른점 입니다.
-  Interceptor 또한 필터처럼 체이닝을 구성할 수 있다는 것이 특징입니다. 
+- Filter의 경우 Spring Context 영역 밖에서 동작합니다. 또한 요청이 Servlet으로 가기 전 요청을 가로채 로직을 수행할 수 있습니다.
+  필터의 다른 특징은 Request와 Response를 조작할 수 있습니다. <br>
+  Interceptor는 Spring Context 영역 내 DispatcherServlet과 Controller 사이에서 동작하는 것이 필터와의 다른점 입니다. <br>
+  Filter는 스프링과 무관하게 처리해야 하는 작업(ex. 인증/인가, 이미지/데이터 압축 및 문자열 인코딩 등)을 처리할 수 있으며,
+  Interceptor는 클라이언트 요청과 관련되어 처리해야 하는 작업(ex. 세부적인 인증/인가, API 호출에 대한 검사 등)을 처리할 수 있습니다. 
   </details>
 <br>
 
