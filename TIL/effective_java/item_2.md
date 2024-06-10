@@ -78,3 +78,42 @@ public class NutritionFacts {
 생성자 체이닝이란 위와 같이 매개변수가 적은쪽에서 매개변수가 많은쪽의 생성자를 this를 이용하여 호출하는 방식이다. <br>
 하지만 생성자 체이닝 방식은 매개변수가 많아지면 인스턴스를 생성할 때 마다 타입이 같은 매개변수를 혼동하여 잘못된 값을 전달할 수 도 있고, 
 코드를 읽을 때 각 값의 의미가 무엇인지 헷갈리게 된다.
+
+### 대안2. 자바 빈즈 패턴
+자바 빈즈는 자바 표준 스펙 중 하나이며, 매개변수가 없는 생성자로 객체를 만든 후, setter 메서드들을 호출하여 원하는 매개변수의 값을 설정하는 방식이다.
+```java
+public class NutritionFactsWithJavaBeansPattern {
+  private int servingSize = -1; // 필수. 기본 값 없음
+  private int servings = -1;    // 필수. 기본 값 없음
+  private int calories;
+  private int fat;
+  private int sodium;
+  private int carbohydrate;
+
+  public void setServingSize(int servingSize) {
+      this.servingSize = servingSize;
+  }
+
+  public void setServings(int servings) {
+      this.servings = servings;
+  }
+
+  public void setCalories(int calories) {
+      this.calories = calories;
+  }
+
+  public void setFat(int fat) {
+      this.fat = fat;
+  }
+
+  public void setSodium(int sodium) {
+      this.sodium = sodium;
+  }
+
+  public void setCarbohydrate(int carbohydrate) {
+      this.carbohydrate = carbohydrate;
+  }
+}
+```
+자바 빈즈 패턴은 매개변수가 많아지더라도 값을 헷갈리지 않고 인스턴스를 만들어줄 수 있다. 하지만 객체 하나를 만드려면 여러 개의 setter 메서드를 호출해야 하고,
+객체가 완전히 완성되기 전까지는 일관성이 깨지게된다. 또한 setter 메서드 때문에 클래스를 불변으로 만들 수 없다.
