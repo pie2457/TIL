@@ -117,3 +117,75 @@ public class NutritionFactsWithJavaBeansPattern {
 ```
 자바 빈즈 패턴은 매개변수가 많아지더라도 값을 헷갈리지 않고 인스턴스를 만들어줄 수 있다. 하지만 객체 하나를 만드려면 여러 개의 setter 메서드를 호출해야 하고,
 객체가 완전히 완성되기 전까지는 일관성이 깨지게된다. 또한 setter 메서드 때문에 클래스를 불변으로 만들 수 없다.
+### 권장하는 방법 : 빌더 패턴
+점층적 생성자 패턴의 안정성과 자바 빈즈 패턴의 가독성을 겸비한 빌더 패턴을 살펴보자. 클라이언트는 필요한 객체를 직접 만드는 대신, 필수 매개변수만으로 생성자를 호출하여
+빌더 객체를 얻는다. 그런 다음 빌더 객체가 제공하는 일종의 setter 메서드들로 원하는 선택 매개변수를 설정한다. 마지막으로 매개변수가 없는 build() 메서드를 호출하여
+필요한 객체를 얻게 된다.
+```java
+public class NutritionFactsWithBuilderPatten {
+  private final int servingSize;
+  private final int servings;
+  private final int calories;
+  private final int fat;
+  private final int sodium;
+  private final int carbohydrate;
+
+  private NutritionFactsWithBuilderPattern(Builder builder) {
+    servingSize = builder.servingSize;
+    servings = builder.servings;
+    calories = builder.calories;
+    fat = builder.fat;
+    sodium = builder.sodium;
+    carbohydrate = builder.carbohydrate;
+  }
+	
+  public static class Builder {
+    private final int servingSize;
+    private final int servings;
+    private int calories;
+    private int fat;
+    private int sodium;
+    private int carbohydrate;
+		
+    public Builder(int servingSize, int serving) {
+      this.servingSize = servingSize;
+      this.serving = serving;
+    }
+		
+    public Builder calories(int val) {
+      calories = val;
+      return this;
+    }
+		
+    public Builder fat(int val) {
+      fat = val;
+      return this;
+    }
+
+    public Builder sodium(int val) {
+      sodium = val;
+      return this;
+    }
+
+    public Builder carbohydrate(int val) {
+      carbohydrate = val;
+      return this;
+    }
+
+    public NutritionFactsWithBuilderPattern build() {
+      return new NutritionFactsWithBuilderPattern(this);
+    }
+  }
+}
+```
+Builder 클래스 내의 생성자는 필수 매개변수만을 입력받고, 나머지 선택 매개변수는 일종의 setter 메서드로 채워 넣는다. 그리고 마지막으로 build() 메서드를 통해
+완성된 `NutritionFactsWithBuilderPattern` 객체를 생성한다. `NutritionFactsWithBuilderPattern` 클래스는 불변이며, 빌더의 setter 메서드들은
+빌더 자신을 반환하기 때문에 `.`을 이용하여 연쇄적으로 호출할 수 있다. 이런 방식을 **플루언트 혹은 API 메서드 체이닝**이라고 한다.
+```java
+NutritionFactsWithBuilderPattern nutritionFacts =
+  new NutritionFactsWithBuilderPattern.Builder(240, 8)
+      .calories(100)
+      .sodium(35)
+      .build();
+```
+클라이언트 입장에서는 빌더 패턴을 통해 코드를 쓰기 쉽고, 읽기도 쉽게 작성할 수 있다. 
