@@ -189,3 +189,33 @@ NutritionFactsWithBuilderPattern nutritionFacts =
       .build();
 ```
 클라이언트 입장에서는 빌더 패턴을 통해 코드를 쓰기 쉽고, 읽기도 쉽게 작성할 수 있다. 
+
+### 계층적으로 설계된 클래스와 잘 어울리는 빌더 패턴
+```java
+public abstract class Pizza {
+	public enum Topping {
+		HAM, MUSHROOM, ONION, PEPPER, SAUSAGE
+	}
+	
+	final Set<Topping> toppings;
+	
+	Pizza(Builder<?> builder) {
+		toppings = builder.toppings.clone();
+	}
+	
+	abstract static class Builder<T extends Builder<T>> {
+		private EnumSet<Topping> toppings = EnumSet.noneOf(Topping.class);
+		
+		public T addTopping(Topping topping) {
+			topping.add(topping);
+			return self();
+		}
+		
+		abstract Pizza build();
+		
+		protected abstract T self();
+	}
+}
+```
+Pizza.Builder 클래스는 재귀적 타입 한정을 이용하는 제네릭 타입이며, 추상 메서드인 self()를 더해 하위 클래스에서는 형 변환을 하지 않고도 메서드 체이닝을 지원한다.
+하위 클래스에서는 이 추상 메서드의 반환 값을 자기 자신을 주면 된다. <br>
