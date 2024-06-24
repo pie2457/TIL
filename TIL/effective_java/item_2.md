@@ -219,3 +219,75 @@ public abstract class Pizza {
 ```
 Pizza.Builder 클래스는 재귀적 타입 한정을 이용하는 제네릭 타입이며, 추상 메서드인 self()를 더해 하위 클래스에서는 형 변환을 하지 않고도 메서드 체이닝을 지원한다.
 하위 클래스에서는 이 추상 메서드의 반환 값을 자기 자신을 주면 된다. <br>
+이제 Pizza의 하위 클래스인 뉴욕 피자와 칼조네 피자를 보며, 빌더 패턴의 유연함을 경험해 보자.
+```java
+public class NyPizza extends Pizza {
+  public enum Size {
+     SMALL, MEDIUM, LARGE
+  }
+
+  private final Size size; // 필수 매개변수
+
+  private NyPizza (Builder builder) {
+    super(builder);
+    size = builder.size;
+  }
+
+  public static class Builder extends Pizza.Builder<Builder> {
+    private final Size size;
+
+    public Builder(Size size) {
+      this.size = size;
+    }
+
+    @Override
+    NyPizza builder() {
+      return new NyPizza(this);
+    }
+
+    @Override
+    protected Builder self() {
+      return this;
+    }
+  }
+}
+```
+```java
+public class CalzonePizza extends Pizza {
+  private final boolean sauceInside; // 필수 매개변수
+
+  private CalzonePizza(Builder builder) {
+    super(builder);
+    sauceInside = builder.sauceInside;
+  }
+
+  public static class Builder extends Pizza.Builder<Builder> {
+    private boolean sauceInside = false;
+    return this;
+  }
+
+    @Override
+    CalzonePizza builder() {
+      return new CalzonePizza(this);
+    }
+
+    @Override
+    protected Builder self() {
+      return this;
+    }
+  }
+}
+```
+각 하위 클래스의 빌더가 정의한 build() 메서드는 구체 하위 클래스를 반환하고 있다. 하위 클래스의 메서드가 상위 클래스의 메서드가 반환한 타입이 아닌, 
+그 하위 타입을 반환하는 기능을 공변 반환 타이핑이라 한다. 이 기능을 사용하면 클라이언트가 형 변환에 신경쓰지 않고 빌더를 사용할 수 있다.
+```java
+NyPizza pizza = new NyPizza.Builder(Size.SMALL)
+      .addTopping(Topping.SAUSAGE)
+      .addTopping(Topping.ONION)
+      .build();
+
+Calzone calzone = new Calzone.Builder()
+      .addTopping(HAM)
+      .sauceInside();
+      .build();
+```
