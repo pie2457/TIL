@@ -27,4 +27,27 @@ private 생성자를 호출할 수 있는데, 이러한 리플렉션으로 변�
   - 해당 클래스가 싱글톤임이 API에 명백히 드러난다.
   - 간결하다.
 - 단점 : 싱글톤을 사용하는 클라이언트 코드를 테스트하기 어려워진다.
- 
+
+```java
+public class Concert {
+  private boolean lightsOn;
+  private boolean mainStageOpen;
+  private Elvis elvis;
+
+  public Concert(Elvis elvis) {
+    this.elvis = elvis;
+  }
+
+  public void perform() {
+    mainStateOpen = true;
+    lightsOn = true;
+    elvis.sing();
+  }
+}
+```
+Concert라는 클래스가 있고 Concert가 Elvis를 사용하고 있다. 즉, **Concert라는 클래스 자체가 Elvis의 클라이언트 코드**이다. <br>
+Cocert 클래스에서 Elvis를 사용하고 있고 Elvis의 sing을 호출할 때 마다 Elvis는 노래를 부르게 된다.
+하지만 Elvis가 노래를 부를 때 마다 굉장히 많은 돈이 든다고 가정해 보자. <br>
+우리는 Concert를 시작하기 전에 Elvis가 노래를 부를 때 mainState가 Open이 되는지, light가 켜지는지 완벽한 무대와 안전을 위해 여러번 확인을 하고 싶은데,
+그 때 마다 Elvis가 와서 노래를 부를 수 없다. 그래서 우리는 대역을 필요로 하는데 대역으로 쓸 수 있는 사람이 없다. 왜? 싱글톤은 인스턴스가 단 하나임을
+보장하기 때문이다. 이런 문제를 해결하기 위해 인터페이스로 정의하고 그 구현체를 사용해보자.
