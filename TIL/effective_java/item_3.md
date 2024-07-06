@@ -51,3 +51,58 @@ Cocert 클래스에서 Elvis를 사용하고 있고 Elvis의 sing을 호출할 �
 우리는 Concert를 시작하기 전에 Elvis가 노래를 부를 때 mainState가 Open이 되는지, light가 켜지는지 완벽한 무대와 안전을 위해 여러번 확인을 하고 싶은데,
 그 때 마다 Elvis가 와서 노래를 부를 수 없다. 그래서 우리는 대역을 필요로 하는데 대역으로 쓸 수 있는 사람이 없다. 왜? 싱글톤은 인스턴스가 단 하나임을
 보장하기 때문이다. 이런 문제를 해결하기 위해 인터페이스로 정의하고 그 구현체를 사용해보자.
+```java
+public interface IElvis {
+  void sing();
+}
+
+public class Elvis implements IElvis {
+  public static final Elvis INSANCE = new Elvis();
+
+  private Elvis() {}
+
+  @Override
+  public void sing() {
+    System.out.println("I'm Elvis ! sing ~ ");
+  }
+
+  public static void main(String[] args) {
+    Elvis elvis = Elvis.INSTANCE;
+    elvis.sing();
+  }
+}
+
+public class Concert {
+  private boolean lightsOn;
+  private boolean mainStateOpen;
+  private Elvis elvis;
+
+  public Concert(IElvis elvis) {
+    this.elvis = elvis;
+  }
+
+  public void perform() {
+    mainStateOpen = true;
+    lightsOn = true;
+    elvis.sing();
+  }
+}
+
+public class MockElvis implements IElvis {
+
+  @Override
+  public void sing() {
+    System.out.println("I'm (mock)Elvis ! sing ~ ");
+  }
+}
+```
+```java
+class ConcertTest {
+
+  @Test
+  void perform() {
+    Concert concert = new Concert(new MockElvis());
+    concert.perform();
+  }
+}
+```
