@@ -26,7 +26,7 @@ private 생성자를 호출할 수 있는데, 이러한 리플렉션으로 변�
 - 장점
   - 해당 클래스가 싱글톤임이 API에 명백히 드러난다.
   - 간결하다.
-- 단점 : 싱글톤을 사용하는 클라이언트 코드를 테스트하기 어려워진다.
+- 단점1. 싱글톤을 사용하는 클라이언트 코드를 테스트하기 어려워진다.
 
 ```java
 public class Concert {
@@ -106,3 +106,28 @@ class ConcertTest {
   }
 }
 ```
+- 단점2. 리플렉션으로 private 생성자를 호출할 수 있다.
+리플렉션을 사용하면 같은 타입의 인스턴스를 여러 개 생성할 수 있게되어 싱글톤이 깨지게 된다.
+```java
+public class ElvisReflection {
+  public static void main(String[] args) {
+    try {
+      // getDeclaredConstructor()
+      // -> 선언되어 있는 기본 생성자. 접근 지시자에 상관없이 private한 생성자도 접근이 가능하다.
+      Constructor<Elvis> defaultConstructor = Elvis.class.getDeclaredConstructor();
+
+      // setAccessible(true)로 해주지 않으면 private이어서 생성자를 호출할 수 없게 된다.
+      defaultConstructor.setAccessible(true);
+
+      //defaultConstructor를 통해 인스턴스를 생성하면 생성할 때 마다 각기 다른 인스턴스가 생성된다.
+      Elvis elvis1 = defaultConstructor.newInstance();
+      Elvis elvis2 = defaultConstructor.newInstance();
+      System.out.println(elvis1 == elvis2); // -> false
+      System.out.println(elvis1 == Elvis.INSTANCE()); // -> false
+    } catch (..exception || ..exception etc ..) {
+        e.printStackTrace();
+    }
+  }
+}
+```
+
