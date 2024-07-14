@@ -130,4 +130,40 @@ public class ElvisReflection {
   }
 }
 ```
+그래서 책에서 권장하는 대안으로는 두번째 객체가 생성되려할 때 예외를 던지게 하는 방식이다.
+```java
+public class Elvis {
+  public static final Elvis INSTANCE = new Elvis();
+  private static final boolean created;
 
+  private Elvis() {
+    if(created) {
+      throw new UnsupportedOperationException("can't be created by constructor");
+    }
+    created = true;
+  }
+
+  public void sing() {
+    System.out.println("sing ~ ");
+  }
+
+  public static void main(String[] args) {
+    Elvis elvis = Elvis.INSTANCE;
+    elvis.sing();
+  }
+}
+```
+```java
+public class ElvisReflection {
+  public static void main(String[] args) {
+    try {
+      Constructor<Elvis> defaultConstructor = Elvis.class.getDeclaredConstructor();
+      defaultConstructor.INSTANCE.sing();
+      // 두번째 인스턴스 생성 요청 -> 에러 발생.
+      Elvis elvis = defaultConstructor.newInstance();
+    } catch(..exception || .. exction etc﹒﹒) {
+        e.printStackTrace();
+    }
+  }
+}
+```
