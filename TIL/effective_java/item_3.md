@@ -169,3 +169,21 @@ public class ElvisReflection {
 ```
 두번째 객체를 생성하려 할 때 예외를 던지도록 코드를 변경해보았다. <br>
 Elvis.INSTANCE.sing()을 호출할 땐 문제없이 실행할 수 있지만 리플렉션을 통해 새로운 인스턴스를 생성하려고 하면 에러가 발생하게 된다. 
+### 싱글톤을 만드는 방법 : 정적 팩터리 메서드를 public static으로 제공하는 방식
+```java
+public class Elvis {
+  private static final Elvis INSTANCE = new Elvis();
+
+  private Elvis() { }
+
+  public static Elvis getInstance() {
+    return INSTANCE;
+  }
+
+  public void sing() {
+    System.out.println("sing~~");
+  }
+}
+```
+리플렉션을 통한 변조 외에는 해당 방법도 전체 시스템에서 유일한 인스턴스임을 보장한다. 단지 필드를 private로 바꾸고,
+객체 반환을 정적 팩터리 메서드를 사용해주고 있다.
