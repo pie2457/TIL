@@ -186,4 +186,18 @@ public class Elvis {
 }
 ```
 리플렉션을 통한 변조 외에는 해당 방법도 전체 시스템에서 유일한 인스턴스임을 보장한다. 단지 필드를 private로 바꾸고,
-객체 반환을 정적 팩터리 메서드를 사용해주고 있다.
+객체 반환을 정적 팩터리 메서드를 사용해 주고 있다.
+- 장점1. API를 바꾸지 않고도 싱글턴이 아니게 할 수 있다.
+  - 가령, 정적 팩터리 메서드가 호출하는 스레드 별로 다른 인스턴스를 넘겨주도록 할 수 있다.
+```java
+public class Elvis {
+  private static final Elvis INSTANCE = new Elvis();
+
+  private Elvis() { }
+
+  public static Elvis getInstance() {
+    return new Elvis(); // -> private한 기본 생성자를 넘겨주도록 변경
+  }
+...
+}
+```
