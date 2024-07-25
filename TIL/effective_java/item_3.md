@@ -201,3 +201,31 @@ public class Elvis {
 ...
 }
 ```
+- 장점2. 제네릭 싱글턴 팩토리 메서드로 변경할 수 있다.
+```java
+public class MetaElvis<T> {
+  private static final MetaElvis<Object> INSTANCE = new MetaElvis<>();
+
+  private MetaElvis() {}
+
+  @SupperessWarings("unchecked")
+  public static <T> MetaElvis<T> getInstance() {
+    return (MetaElvis<T>) INSTANCE;
+  }
+
+  public void say(T t) {
+    System.out.println(t);
+  }
+
+  public static void main(String[] args) {
+    MetaElvis<String> elvis1 = MetaElvis.getInstance();
+    MetaElvis<Integer> elvis2 = MetaElvis.getInstance();
+    System.out.println(elvis1.equals(elvis2)); // -> true
+    // elvis1과 elvis2는 같은 객체임에도 불구하고 (reference도 같다) 타입이 다르기 때문에 == 연산자는 사용할 수 없다.
+  }
+}
+```
+MetaElvis의 elvis1과 elvis2는 각자의 타입은 다르지만(String, Integer) 인스턴스는 동일하다. 인스턴스는 동일하지만
+각각이 원하는 타입으로 변경해서 사용할 수 있다는 것이 제네릭 팩터리의 장점이다.
+
+
