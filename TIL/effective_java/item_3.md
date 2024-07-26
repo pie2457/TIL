@@ -227,5 +227,33 @@ public class MetaElvis<T> {
 ```
 MetaElvis의 elvis1과 elvis2는 각자의 타입은 다르지만(String, Integer) 인스턴스는 동일하다. 인스턴스는 동일하지만
 각각이 원하는 타입으로 변경해서 사용할 수 있다는 것이 제네릭 팩터리의 장점이다.
+- 장점3. 정적 팩터리 메서드 참조를 공급자로 사용할 수 있다.
+  - 가령, Elvis::getInstance 대신에 Supplier<Singer>로 사용할 수 있다.
+```java
+public class Elvis implements Singer {
+  private static final Elvis INSTANCE = new Elvis();
 
+  private static Elvis getInstance() {
+    return INSTANCE;
+  }
 
+  @Override
+  public void sing() {
+    System.out.println("sing~");
+  }
+}
+
+public class Concert {
+
+  public void start(Supplier<Singer> singerSupplier) {
+    Singer singer = singerSupplier.get();
+    singer.sing();
+  }
+
+  public static void main(String[]args) {
+    Concert concert = new Concert();
+    concert.start(Elvis::getInstance);
+  }
+}
+```
+위의 장점들을 활용할 일이 없다면, 첫번째 방식을 사용하는 것이 좋다.
