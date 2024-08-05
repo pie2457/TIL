@@ -245,7 +245,7 @@
    - SRP(Single Responsibility Principle, 단일 책임 원칙) : 클래스는 단 하나의 목적을 가져야 하며, 클래스를 변경하는 이유는 단 하나의 이유여야 한다.
    - OCP(Open-Closed Principle, 개방 폐쇠 원칙) : 클래스는 확장에 열려있고, 변경에는 닫혀있어야 한다.
    - LSP(Liskov Substitution Principle, 리스코프 치환 원칙) : 상위 타입 객체를 하위 타입으로 변경하여도 프로그램은 일관되게 동작되어야 한다.
-   - ISP(Interface Segregation Principle, 인터페이스 분리 원칙) : 클라이언트는 이용하지 않는 메서드에 의존하지 않도록 인터페이스를 분리해야 한다.
+   - ISP(Interface Segregation Principle, 인터페이스 분리 원칙) : 클래스는 자신이 사용하지 않는 인터페이스는 구현하지 말아야 한다는 것을 의미한다. ISP는 하나의 일반적인 인터페이스 보단 여러개의 구체적인 인터페이스가 낫다 라고 정의할 수 도 있다. 
    - DIP(Dependency Inversion Principle, 의존 역전 법칙) : 구체화된 클래스가 아닌, 추상화된 인터페이스에 의존해야 한다. 
    </details>
 <br>
