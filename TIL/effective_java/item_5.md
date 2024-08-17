@@ -19,3 +19,21 @@ public class SpellChecker {
 ```
 해당 클래스는 사전을 하나만 사용한다고 가정하고 있다. 하지만 현실에서는 사전이 언어별로 따로 있고, 
 심지어 특수 어휘용 사전을 별도로 두는 경우도 있다.
+```java
+public class SpellChecker {
+  private final Lexicon dictionary = new Lexicon();
+
+  public static SpellChecker INSTANCE = new SpellChecker();
+
+  private SpellChecker() {}
+
+  public static boolean isVaild(String word) {
+    // dictionary를 사용한 로직
+  }
+
+  public static List<String> suggestions(String typo) {
+    // dictionary를 사용한 로직
+  }
+}
+```
+싱글턴 클래스도 마찬가지로 사전을 하나만 사용한다고 가정하므로 위와 같은 단점이 발생한다.
