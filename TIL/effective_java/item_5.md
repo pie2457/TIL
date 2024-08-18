@@ -37,3 +37,27 @@ public class SpellChecker {
 }
 ```
 싱글턴 클래스도 마찬가지로 사전을 하나만 사용한다고 가정하므로 위와 같은 단점이 발생한다.
+```java
+public class SpellChecker {
+  private Lexicon dictionary = new Lexicon();
+
+  public static SpellChecker INSTANCE = new SpellChecker();
+
+  private SpellChecker() {}
+
+  public static void changeDictionary(Lexicon dictionary) {
+    this.dictionary = dictionary;
+  }
+
+	public static boolean isVaild(String word) {
+		// dictionary를 사용한 로직
+	}
+	
+	public static List<String> suggestions(String typo) {
+		// dictionary를 사용한 로직
+	}
+}
+```
+정적 유틸리티 클래스 혹은 싱글턴 클래스의 dictionary에 대해 final 키워드를 제거하고 외부에서
+dictionary를 다른 사전으로 교체하도록 설계할 수 있다. 하지만 해당 방식은 사용이 어색하고,
+오류를 내기 쉬우며 멀티스레드 환경에선 동시성 문제를 야기할 수 있다.
