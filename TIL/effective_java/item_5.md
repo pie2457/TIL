@@ -61,3 +61,24 @@ public class SpellChecker {
 정적 유틸리티 클래스 혹은 싱글턴 클래스의 dictionary에 대해 final 키워드를 제거하고 외부에서
 dictionary를 다른 사전으로 교체하도록 설계할 수 있다. 하지만 해당 방식은 사용이 어색하고,
 오류를 내기 쉬우며 멀티스레드 환경에선 동시성 문제를 야기할 수 있다.
+```java
+public class SpellChecker {
+  public final Lexicon dictionary;
+
+  public SpellChecker(Lexicon dictionary) {
+    this.dictionary = dictionary;
+  }
+
+  public static boolean isVaild(Strinf word) {
+    // dictionary를 사용한 로직
+  }
+
+  public static List<String> suggestions(String typo) {
+    // dictionary를 사용한 로직
+  }
+}
+```
+정적 클래스와 싱글턴 클래스는 내부적인 자원에 의존하면 안된다는 사실을 위 예제를 통해 느낄 수 있었다.
+즉, 내부 자원은 외부에서 주입을 받는 것이 바람직하다는 뜻이다.<br>
+의존 객체 주입을 사용한 클래스는 final 키워드 덕분에 불변을 보장할 수 있고, 여러 자원 인스턴스를 지원한다는
+장점이 있다. 또한, 의존 객체 주입은 생성자 뿐 아니라 정적 팩터리와 빌더에서도 응용이 가능하다. <br>
