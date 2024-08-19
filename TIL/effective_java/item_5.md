@@ -49,13 +49,13 @@ public class SpellChecker {
     this.dictionary = dictionary;
   }
 
-	public static boolean isVaild(String word) {
-		// dictionary를 사용한 로직
-	}
+  public static boolean isVaild(String word) {
+    // dictionary를 사용한 로직
+  }
 	
-	public static List<String> suggestions(String typo) {
-		// dictionary를 사용한 로직
-	}
+  public static List<String> suggestions(String typo) {
+    // dictionary를 사용한 로직
+  }
 }
 ```
 정적 유틸리티 클래스 혹은 싱글턴 클래스의 dictionary에 대해 final 키워드를 제거하고 외부에서
