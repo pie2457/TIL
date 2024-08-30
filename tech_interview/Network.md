@@ -102,3 +102,14 @@
 
 </details>
 <br>
+
+
+### 📌 CORS
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- Cross-Origin Resource Sharing으로 Origin이 다른 경우에도 리소스를 공유할 수 있게 허용해주는 정책입니다.
+  여기서 Origin이란 프로토콜 + 호스트 + 포트 세가지를 합한 것으로 이 세가지가 동일하면 같은 Origin이라고 판단합니다.
+</details>
+<br>
