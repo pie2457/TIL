@@ -103,7 +103,6 @@
 </details>
 <br>
 
-
 ### 📌 CORS
 <details>
    <summary> 답안 </summary>
@@ -111,5 +110,16 @@
 
 - Cross-Origin Resource Sharing으로 Origin이 다른 경우에도 리소스를 공유할 수 있게 허용해주는 정책입니다.
   여기서 Origin이란 프로토콜 + 호스트 + 포트 세가지를 합한 것으로 이 세가지가 동일하면 같은 Origin이라고 판단합니다.
+</details>
+<br>
+
+### 📌 HTTP 1.0과 1.1의 차이
+<details>
+   <summary> 답안 </summary>
+<br />
+
+- HTTP1.0과 1.1의 차이는 TCP 세션을 지속적으로 유지 할 수 있느냐 없느냐의 차이입니다.
+  HTTP1.0은 요청 컨텐츠마다 TCP 커넥션을 맺고 끊지만, 1.1은 매 요청마다 TCP 커넥션을 맺고 끊는것이 아닌 keep-alive를 통해
+  별도의 access가 없더라도 일정 시간동안 커넥션을 유지합니다.
 </details>
 <br>
