@@ -28,3 +28,13 @@ Boolean b = new Boolean("true");
 ```java
 Boolean b = Boolean.valueOf("true");
 ```
+
+### String.matches() 사용
+생성 비용이 크면 캐싱하여 재사용하는 것이 좋지만, 항상 우리가 만드는 객체의 비용을 알 수는 없다. 
+예를 들어 주어진 문자열이 유효한 로마 숫자인지 확인하는 메서드를 작성하고 싶다면, 다음과 같이 정규표현식을 사용하는 것이 좋다.
+```java
+public static boolean isRomanNumeral(String s) {
+  return s.matches("^(?=.)M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$");
+}
+```
+
