@@ -41,4 +41,15 @@ public static boolean isRomanNumeral(String s) {
 한 번 쓰고 버려져서 곧바로 가비지 컬렉션 대상이 되는데, 해당 정규표현식이 반복해서 사용되는 빈도가 높아질수록 동일한 Pattern 인스턴스가
 생성되고 버려지는 비용이 커진다. 따라서 Pattern 인스턴스를 미리 캐싱해두고, 나중에 isRomanNumeral() 메서드가 호출될 때 마다
 이 인스턴스를 재활용하는 것이 좋다.
+```java
+public class RomanNumerals {
+  private static final Pattern ROMAN = Pattern
+		.compile("^(?=.)M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$");
+
+  public static boolean isRomanNumeral(String s) {
+    return ROMAN.matcher(s).matches();
+  }
+}
+```
+이렇게 개선하면 isRomanNumeral() 메서드가 빈번히 호출되는 상황에서 성능을 상당히 끌어올릴 수 있다.
 
