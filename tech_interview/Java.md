@@ -282,7 +282,6 @@
 </details>
 <br>
 </details>
-<br>
 
 ### 📌 오류(Error)와 예외(Exception)
 
