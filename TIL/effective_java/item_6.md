@@ -63,3 +63,21 @@ public class RomanNumerals {
 매번 같은 가변 Set 인스턴스를 반환한다. <br>
 반환된 Set 인스턴스는 가변일지라도 수행하는 기능이 모두 동일하고, 모든 Set 인스턴스가 Map 인터페이스를 대변하기 때문이다.
 따라서 keySet() 객체를 여러 개 만들어도 상관은 없지만, 그럴 필요도 이득도 없다. 
+
+```java
+public class UsingKeySet {
+  public static void main(String[] args) {
+    Map<String, Integer> menu = new HashMap<>();
+    menu.put("Burger", 8);
+    menu.put("Pizza", 9);
+
+    Set<String> names1 = menu.keySet();
+    Set<String> names2 = menu.keySet();
+			
+    names1.remove("Burger");
+    System.out.println(names1.size()); // 1
+    System.out.println(names2.size()); // 1
+  }
+}
+```
+따라서 위와 같이 names1 인스턴스를 수정하게 되면, names2 인스턴스도 같이 영향을 받게 된다. 
